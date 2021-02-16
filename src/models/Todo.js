@@ -4,9 +4,6 @@ const Todo = types
 // descreva o que a gente considera um TODO
   .model({
     key: types.identifier,
-    /*
-    value: types.optional(types.string, ''),
-    done: types.boolean */
     value: '',
     done: false
   })

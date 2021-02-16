@@ -70,7 +70,6 @@ const App = observer(({ store }) => {
             {store.todos.length > 0 ? <Todos store={store} /> : null}
           </Col>
         </Row>
-
       </Content>
       <Footer style={{ textAlign: 'center' }}><Text type='secondary'>Made with ❤️ by Looplex Front Team</Text></Footer>
     </Layout>

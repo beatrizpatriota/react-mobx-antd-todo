@@ -1,72 +1,53 @@
-import './App.css'
-
-import '../node_modules/antd/dist/antd.css'
-
 import { useState } from 'react'
 import { observer } from 'mobx-react-lite'
+import {
+  Form,
+  Input,
+  Layout,
+  Typography
+} from 'antd'
+import {
+  DownOutlined
+} from '@ant-design/icons'
 
-import { Card, Input, Row, Col, PageHeader } from 'antd'
+import Todos from './components/Todos.js'
 
-import { PlusOutlined } from '@ant-design/icons'
-
-import TodoView from '../src/components/TodoView'
-import TodoList from '../src/components/TodoList'
+const { Header, Content, Footer } = Layout
+const { Title } = Typography
 
 const App = observer(({ store }) => {
   const [todo, setTodo] = useState('')
 
-  function handleSubmit (ev) {
-    ev.preventDefault()
-    store.addTodo(todo)
-    console.log(todo)
-    setTodo('')
-  }
-
   return (
-    <div className='App-header'>
-
-      <Row>
-        <PageHeader
-            title='Todo List'
-            subTitle='To add a todo, just fill the form below and press enter.'
-          />
-      </Row>
-
-      <Row className='app'>
-        <Col>
-          <Card title='Add a todo'>
+    <Layout style={{ height: '100vh' }}>
+      <Header style={{ backgroundColor: 'transparent', color: 'black' }}>
+        <Title>Todos</Title>
+      </Header>
+      <Content>
+        <Form
+          onFinish={values => {
+            store.addTodo(values.todo)
+            setTodo('')
+          }}
+          onFinishFailed={({ values, errorFields, outOfDate }) => { }}
+        >
+          <Form.Item
+            name='todo'
+            rules={[{ required: true, message: 'Digite uma tarefa!' }]}
+          >
             <Input
-              onPressEnter={handleSubmit}
-              style={{ width: 600, height: 55 }}
+              size='large'
+              prefix={<DownOutlined />}
               placeholder='What needs to be done?'
-              prefix={<PlusOutlined />}
-              name='todo'
               value={todo}
-              onChange={ev => setTodo(ev.target.value)}
+              onChange={ev => { setTodo(ev.target.value) }}
             />
-          </Card>
-        </Col>
-      </Row>
-
-      <Row className='app'>
-        <Col>
-          <Card title='Heres your list'>
-            <TodoList
-              onChange={ev => setTodo(ev.target.value)}
-              itemsLeft={store.itemsLeft}
-            >
-              {store.todos.map(todo => (
-                <TodoView
-                  key={todo.key}
-                  todo={todo}
-                />
-              ))}
-            </TodoList>
-          </Card>
-        </Col>
-      </Row>
-
-    </div>
+          </Form.Item>
+        </Form>
+        {store.todos.length > 0 ? <Todos todos={store.todos} /> : null}
+      </Content>
+      <Footer>Made with ❤️ by Looplex Front Team</Footer>
+    </Layout>
   )
 })
 

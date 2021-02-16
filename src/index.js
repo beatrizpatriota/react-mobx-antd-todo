@@ -3,14 +3,13 @@ import ReactDOM from 'react-dom'
 
 import '../node_modules/antd/dist/antd.css'
 
-import AppStore from './models/AppStore'
+import AppStore from './models/AppStore.js'
 import App from './App.js'
 
-const store = AppStore.create({})
+const store = AppStore.create()
+if (window) window.appStore = store
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App store={store} />
-  </React.StrictMode>,
+  <App store={store} />,
   document.getElementById('root')
 )

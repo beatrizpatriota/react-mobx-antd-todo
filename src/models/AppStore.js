@@ -17,14 +17,33 @@ const AppStore = types
   }))
   .actions(self => ({
     addTodo (value) {
-      self.todos.push({
-        key: slugify(value),
-        value: value,
-        done: false
-      })
+      if (!self.hasTodo(value)) {
+        self.todos.push({
+          key: slugify(value),
+          value: value,
+          done: false
+        })
+      }
     },
     removeTodo (todo) {
       destroy(todo)
+    },
+    hasTodo (todo) {
+      return self.todos.find(t => t.value === todo)
+    },
+    getFilteredTodos (filter = 'ALL') {
+      const states = {
+        ALL: self.todos,
+        ACTIVE: self.todos.filter(todo => !todo.done),
+        COMPLETED: self.todos.filter(todo => todo.done)
+      }
+      return states[filter]
+    },
+    clearCompleted () {
+      self.todos = self.todos.filter(todo => !todo.done)
+    },
+    setAll (done) {
+      self.todos.forEach(todo => { todo.done = done })
     }
   }))
 

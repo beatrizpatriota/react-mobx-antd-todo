@@ -8,7 +8,6 @@ const Todo = types
     done: false
   })
   .views(self => ({
-
   }))
   .actions(self => ({
     toggle () {

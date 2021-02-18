@@ -19,9 +19,9 @@ const AppStore = types
     addTodo (value) {
       if (!self.hasTodo(value)) {
         self.todos.push({
-          key: slugify(value),
-          value: value,
-          done: false
+          key: value.key || slugify(value),
+          value: value.value || value,
+          done: value.done || false
         })
       }
     },

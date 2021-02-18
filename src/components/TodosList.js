@@ -17,7 +17,7 @@ const Todos = observer(({ store }) => {
   const [filter, setFilter] = useState('ALL')
 
   // event handlers
-  function handleRadioGroupChange(ev) {
+  function handleRadioGroupChange (ev) {
     const filter = ev.target.value
     setFilter(filter)
   }

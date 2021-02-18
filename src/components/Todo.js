@@ -38,7 +38,7 @@ const Todo = observer(({ todo }) => {
         <Col span={2}>
           <Checkbox checked={todo.done} onChange={ev => { todo.toggle() }} />
         </Col>
-        <Col span={20}>
+        <Col span={18}>
           <Text {...textAttrs}>{todo.value}</Text>
         </Col>
         <Col span={2}>
